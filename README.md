@@ -10,12 +10,21 @@
 
 ```bash
  cd meals
+```
+
+```bash
 cd client
+```
+
+```bash
 npm install
-npm start
 
 ```
 
-###### to run the project on the browser.
+```bash
+npm start
+```
 
-### Still Working on this project.
+#### To run the project on the browser.
+
+- Still working on this project
