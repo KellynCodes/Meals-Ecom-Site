@@ -1,0 +1,2 @@
+export const AxiosAuthenticationHeaderToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNGMxYmMzN2RmODI1ODUxMDdiNjI3ZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY2NjM1MTgyMSwiZXhwIjoxNjY2NjExMDIxfQ.NxRXajY1CX7O9eEnsE7GMdWVc_i9aUk-1b74JZIr5RM";

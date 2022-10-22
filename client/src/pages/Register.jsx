@@ -1,11 +1,6 @@
 import { React, useState } from "react";
 import Axios from "axios";
-import {
-  BrowserRouter as ReactDom,
-  Route,
-  Routes,
-  Link,
-} from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Login from "./Login";
 import Nav from "./Nav";
 import Footer from "./Footer";
@@ -18,7 +13,7 @@ function Register() {
   const [password, setPassword] = useState("");
 
   const RegUser = () => {
-    Axios.post("http://localhost:5000/register", {
+    Axios.post("http://localhost:4000/api/auth/register", {
       username: userName,
       country: country,
       phone: phone,
@@ -35,8 +30,7 @@ function Register() {
       <div className="container">
         <div className="row">
           <div className="col-md-5 mt-5 card p-5 offset-3 mb-5">
-            <h2 className="text-center mb-5">Meals Register Page</h2>
-            <form action="" onSubmit={(e) => e.preventDefault}>
+            <form action="" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="name"
                 className="form-control mb-3"

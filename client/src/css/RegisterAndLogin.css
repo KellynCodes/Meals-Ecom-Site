@@ -45,6 +45,20 @@ form .reg {
   align-items: center;
 }
 
+.errorOutput {
+  color: var(--primary_color);
+  height: 100%;
+  width: auto;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  font-size: 0.99rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  margin: 1rem 0;
+}
+
 .reg .reg_btn {
   display: flex;
   align-items: center;

@@ -1,14 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import Register from "./Register";
 
-import {
-  BrowserRouter as ReactDom,
-  Route,
-  Routes,
-  Link,
-} from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 
 //images
 import Banana from "../images/banana.jpg";
@@ -17,12 +12,49 @@ import Food1 from "../images/banana.jpg";
 import Food2 from "../images/img2.jpg";
 import Food3 from "../images/img3.jpg";
 import Logo from "../images/logo.jpg";
-import Logo2 from "../images/logo2.jpg";
+// import Logo2 from "../images/logo2.jpg";s
 import NiceLogo from "../images/nicelogo.jpg";
 import RiceAndMeat from "../images/riceandmeat.jpg";
 import KellynCodes from "../images/kellyncodes.png";
+import {
+  FaCartArrowDown,
+  FaChartArea,
+  FaChartBar,
+  FaPlus,
+} from "react-icons/fa";
+import { BsChatRightDots } from "react-icons/bs";
+import { addProduct } from "../Redux/CartRedux";
+import { useDispatch } from "react-redux";
+import { userRequest } from "../axiosRequest";
 
 function Index() {
+  const [ducts, setDucts] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fetchProduct = await fetch(`${userRequest}/products`);
+      const product = await fetchProduct.json();
+      console.log(product);
+      setDucts(product);
+    };
+    fetchProducts();
+  }, []);
+
+  const handleQuantityIncreaseORDecrease = (type) => {
+    if (type === "increament") {
+      quantity > 1 && setQuantity(quantity + 1);
+    } else if (type === "decreament") {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const addToCart = () => {
+    //add to cart
+    dispatch(addProduct({ ducts, quantity }));
+  };
+
   return (
     <>
       <Nav />
@@ -51,7 +83,7 @@ function Index() {
           </div>
 
           <div className="search_bar">
-            <label for="instantOrder">Instant Order</label>
+            <label htmlFor="instantOrder">Instant Order</label>
             <div className="search">
               <i className="bi bi-search"></i>
               <input type="search" placeholder="Search For Meals" />
@@ -60,11 +92,11 @@ function Index() {
         </div>
 
         <div className="right">
-          <img src={RiceAndMeat} alt="Hero-meal-image" />
+          <img src={RiceAndMeat} alt="Hero-meal" />
         </div>
 
         <div className="chat_button">
-          <i className="bi bi-chat-right-dots"></i>
+          <BsChatRightDots className="icon" />
         </div>
       </div>
 
@@ -77,199 +109,50 @@ function Index() {
           </div>
 
           <div className="menu_nav">
-            <a href="#" className="active">
+            <a href="/active-meals" className="active">
               All
             </a>
-            <a href="#">Rice</a>
-            <a href="#">Beans</a>
-            <a href="#">Fries</a>
-            <a href="#">Swallow</a>
-            <a href="#">Others</a>
+            <a href="/Rice">Rice</a>
+            <a href="/beans">Beans</a>
+            <a href="fried">Fries</a>
+            <a href="swallow">Swallow</a>
+            <a href="orthers">Others</a>
           </div>
         </ul>
 
         <div className="foods">
-          <div className="food">
-            <div className="food_img">
-              <img src={Food} alt="foods" />
-            </div>
+          {ducts &&
+            ducts.map((products) => (
+              <div key={products._id} className="food">
+                <div className="food_img">
+                  <img src={products.img} alt="foods" />
+                </div>
 
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
+                <div className="food_description">
+                  <h4> {products.desc} </h4>
+                  <p> {products.title} </p>
+                  <div className="cart">
+                    <h3>
+                      <i className="fa-solid fa-naira-sign"></i>
+                      <span> {products.price} </span>
+                    </h3>
+                    <div className="add_to_cart">
+                      <FaCartArrowDown
+                        className="icon text-white"
+                        onClick={addToCart}
+                      />
+                    </div>
+                    {/* <FaPlus
+                      className="icon"
+                      onClick={() =>
+                        handleQuantityIncreaseORDecrease("increament")
+                      }
+                    />
+                    <p> {quantity} </p> */}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Food1} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Food2} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Food3} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Logo} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Banana} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Food1} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p> Vero pariatur</p>
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={NiceLogo} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p>Lorem ipsum </p>
-
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="food">
-            <div className="food_img">
-              <img src={Food2} alt="foods" />
-            </div>
-
-            <div className="food_description">
-              <h4>Jollof Rice and Chicken</h4>
-              <p>Lorem ipsum dolor</p>
-
-              <div className="cart">
-                <h3>
-                  <i className="fa-solid fa-naira-sign"></i>
-                  <span>1,500</span>
-                </h3>
-                <div className="add_to_cart">
-                  <i className="bi bi-cart3"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
         <div className="full_menu">
           <button type="button" className="full_menu_btn">
@@ -293,7 +176,7 @@ function Index() {
 
           <div className="right">
             <div className="customer_profile">
-              <img src={KellynCodes} alt="testimonial-customer-image" />
+              <img src={KellynCodes} alt="testimonial-customer" />
               <div className="profile_details">
                 <h1>John Samson</h1>
                 <p>ENUGU, NIGERIA</p>
@@ -351,7 +234,7 @@ function Index() {
                 illum at repellendus asperiores iusto.
               </p>
 
-              <a href="#">READ MORE</a>
+              <a href="blog_readmore">READ MORE</a>
             </div>
           </div>
 
@@ -370,16 +253,16 @@ function Index() {
                 illum at repellendus asperiores iusto.
               </p>
 
-              <a href="#">READ MORE</a>
+              <a href="blog_readmore">READ MORE</a>
             </div>
           </div>
 
           <div className="blog">
-            <img src={Food2} alt="meals-image" />
+            <img src={Food2} alt="food_blog_photo" />
 
             <div className="blog_description">
               <p>
-                <b>Design</b> 01 Octover 2019
+                <b>Design</b> 01 October 2019
               </p>
 
               <h4>Better Tha Takeout Kung Pan Chicken</h4>
@@ -389,26 +272,7 @@ function Index() {
                 illum at repellendus asperiores iusto.
               </p>
 
-              <a href="#">READ MORE</a>
-            </div>
-          </div>
-
-          <div className="blog">
-            <img src={Banana} alt="banana" />
-
-            <div className="blog_description">
-              <p>
-                <b>Design</b> 01 Octover 2019
-              </p>
-
-              <h4>Better Tha Takeout Kung Pan Chicken</h4>
-
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta
-                illum at repellendus asperiores iusto.
-              </p>
-
-              <a href="#">READ MORE</a>
+              <a href="blog_readmore">READ MORE</a>
             </div>
           </div>
 
@@ -427,7 +291,7 @@ function Index() {
                 illum at repellendus asperiores iusto.
               </p>
 
-              <a href="#">READ MORE</a>
+              <a href="blog_readmore">READ MORE</a>
             </div>
           </div>
 
@@ -446,7 +310,26 @@ function Index() {
                 illum at repellendus asperiores iusto.
               </p>
 
-              <a href="#">READ MORE</a>
+              <a href="blog_readmore">READ MORE</a>
+            </div>
+          </div>
+
+          <div className="blog">
+            <img src={Banana} alt="banana" />
+
+            <div className="blog_description">
+              <p>
+                <b>Design</b> 01 Octover 2019
+              </p>
+
+              <h4>Better Tha Takeout Kung Pan Chicken</h4>
+
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta
+                illum at repellendus asperiores iusto.
+              </p>
+
+              <a href="blog_readmore">READ MORE</a>
             </div>
           </div>
         </div>

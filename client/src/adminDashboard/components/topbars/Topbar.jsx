@@ -1,6 +1,6 @@
 import React from "react";
 import "./topbar.css";
-import {} from "react-icons";
+import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import FoodImage from "../../../images/riceandmeat.jpg";
 
 const Topbar = () => {
@@ -12,14 +12,16 @@ const Topbar = () => {
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
-            Alerm
+            <NotificationsNone />
             <span className="topIconBadge">2</span>
           </div>
           <div className="topbarIconContainer">
-            LanG
+            <Language />
             <span className="topIconBadge">2</span>
           </div>
-          <div className="topbarIconContainer">Setting</div>
+          <div className="topbarIconContainer">
+            <Settings />
+          </div>
           <img src={FoodImage} alt="User Avater" className="topAvater" />
         </div>
       </div>

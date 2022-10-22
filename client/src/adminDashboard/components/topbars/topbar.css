@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  border-bottom: 1.5px solid var(--primary_color);
 }
 
 .topbarWrapper {
@@ -21,7 +22,7 @@
   justify-content: space-evenly;
 }
 
-.logo {
+.topbarWrapper .logo {
   font-weight: bold;
   font-size: 30px;
   color: var(--black_color);
@@ -38,7 +39,7 @@
   position: absolute;
   top: -5px;
   right: 0px;
-  background-color: red;
+  background-color: var(--primary_color);
   color: var(--white_color);
   border-radius: 50%;
   width: 15px;

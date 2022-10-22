@@ -29,8 +29,36 @@ body {
   /* font-family: "Lato"; */
 }
 
-i {
+.icon {
   font-size: 1.8rem;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.cartBtn {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.cartBtn:hover {
+  border: none !important;
+  outline: none !important;
+}
+
+.cartBtn:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  /* color: var(--primary_color); */
 }
 
 .nav {
@@ -40,6 +68,10 @@ i {
   align-items: center;
   justify-content: center;
   box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 999999;
+  background-color: var(--white_color);
 }
 
 nav {
@@ -94,11 +126,9 @@ nav {
 .nav .navlinks ul li:nth-child(3) {
   display: none;
 }
-
-.nav .navlinks ul li i {
+.nav .navlinks ul li .i {
   display: none;
 }
-
 .nav .navlinks a {
   font-size: 1.1rem;
   color: var(--black_color);
@@ -199,6 +229,10 @@ nav {
   justify-content: space-evenly;
 }
 
+.nav .first_registration {
+  display: none;
+}
+
 .nav .registration .create_account,
 .login {
   font-size: 1rem;
@@ -232,11 +266,55 @@ nav {
   color: var(--primary_color);
 }
 
+.nav .first_registration {
+  width: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.nav .first_registration {
+  display: none;
+}
+
+.nav .first_registration .create_account,
+.login {
+  font-size: 1rem;
+  color: var(--black_color);
+  font-weight: 600;
+  text-decoration: none;
+}
+.nav .first_registration .login:hover {
+  color: var(--primary_color);
+}
+
+.nav .first_registration .create_account,
+.full_menu_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary_color);
+  background-color: var(--primary_color);
+  height: 3rem;
+  width: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+}
+
+.nav .first_registration .create_account:hover {
+  border: 2px solid var(--primary_color);
+  background-color: var(--white_color);
+  color: var(--primary_color);
+}
+
 .nav .harmburgar_menu {
   display: none;
 }
 
-.nav .registration a.open-on-small-screen {
+.nav .first_registration a .open-on-small-screen {
   display: none;
 }
 
@@ -535,7 +613,14 @@ nav {
 }
 
 .foods .food .food_description .cart .add_to_cart {
-  display: none;
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11.5px;
+  color: white;
+  background-color: var(--primary_color);
 }
 
 .food_menu .full_menu {
@@ -909,6 +994,10 @@ footer {
   .nav {
     width: var(--container_width_md);
     height: 4rem;
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+    background-color: white !important;
   }
 
   .nav .logo img {
@@ -921,7 +1010,6 @@ footer {
     top: 4rem;
     width: 100%;
     height: 5rem;
-    z-index: 999;
     transition: 500ms ease;
     background-color: white;
   }
@@ -945,25 +1033,18 @@ footer {
   }
 
   .navlinks {
-    display: none;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+    display: flex;
+    position: fixed;
+    width: 90vw;
+    height: 80vh;
     background-color: white;
-    z-index: 999;
     top: 0;
-    transition: 500ms ease;
+    transform: translate(-1%);
+    transition: 500ms ease-in-out;
   }
 
-  .isMobile {
-    display: flex;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: white;
-    z-index: 999;
-    top: 0;
-    transition: 500ms ease;
+  .navlinks.navlinkClose {
+    transform: translate(-200%);
   }
 
   .nav .navlinks ul {
@@ -987,7 +1068,7 @@ footer {
     display: inline-flex;
   }
 
-  .nav .navlinks ul li i {
+  .nav .navlinks ul li .i {
     display: flex;
     width: 4rem;
     height: 1.5rem;
@@ -1045,12 +1126,13 @@ footer {
     transform: translateY(-7.2px) rotate(-40deg);
   }
 
-  .nav .registration a.hide-on-small-screen {
-    display: none;
+  .nav .first_registration {
+    display: flex;
+    width: 100%;
   }
 
-  .nav .registration a.open-on-small-screen {
-    display: flex;
+  .nav .first_registration .create_account {
+    font-size: 0.8rem;
   }
 
   /* ============================home====================== */
@@ -1204,17 +1286,6 @@ footer {
   }
   .foods .food .food_description .cart h3 {
     font-size: 0.95rem;
-  }
-
-  .foods .food .food_description .cart .add_to_cart {
-    display: flex;
-    width: 3rem;
-    height: 3rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 11.5px;
-    color: white;
-    background-color: var(--primary_color);
   }
 
   /* ==================testimonials responsice==================== */

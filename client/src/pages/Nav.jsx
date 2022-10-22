@@ -1,22 +1,24 @@
 import React from "react";
 import Logo2 from "../images/logo2.jpg";
-import Cart from "./Cart";
 import Index from "./Index";
-import Login from "./Login";
-import Register from "./Register";
-import { BsSearch } from "react-icons/bs";
-import { FaCartArrowDown } from "react-icons/fa";
-
 import {
-  BrowserRouter as ReactDom,
-  Routes,
-  Route,
-  Link,
-} from "react-router-dom";
+  BsBasket2,
+  BsCart3,
+  BsFillHouseDoorFill,
+  BsFillJournalBookmarkFill,
+  BsSearch,
+} from "react-icons/bs";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { Badge } from "@material-ui/core";
+import { ShoppingCartOutlined } from "@material-ui/icons";
+
+import { Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Nav() {
-  const { isMobile, setIsMobile } = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const cartQauntity = useSelector((state) => state.cart.quantity);
   return (
     <div className="nav">
       <nav>
@@ -32,10 +34,18 @@ function Nav() {
           </Routes>
         </div>
 
-        <div className={isMobile ? " isMobile" : "navlinks"}>
+        <div className={`navlinks ${isMobile ? "navlinks" : "navlinkClose"} `}>
           <ul>
+            <div className="first_registration">
+              <Link to="/login" className="login">
+                Login
+              </Link>
+              <Link to="/register" className="create_account">
+                Create Account
+              </Link>
+            </div>
             <li>
-              <i className="bi bi-house-door"></i>
+              <BsFillHouseDoorFill className="icon i" />
               <Link to="/" className="active">
                 Home
               </Link>
@@ -44,15 +54,15 @@ function Nav() {
               </Routes>
             </li>
             <li>
-              <i className="bi bi-basket2-fill"></i>
+              <BsBasket2 className="icon i" />
               <a href="#menu">Menu</a>
             </li>
             <li>
-              <i className="bi bi-cart3"></i>
+              <BsCart3 className="icon i" />
               <a href="#mytray">My Tray</a>
             </li>
             <li>
-              <i className="bi bi-journal-album"></i>
+              <BsFillJournalBookmarkFill className="icon i" />
               <a href="#mealplans">MealPlans</a>
             </li>
           </ul>
@@ -68,33 +78,20 @@ function Nav() {
               </li>
               <li>
                 <Link to="/cart">
-                  <span className="cart_nums">
-                    <h5>10</h5>
-                  </span>
-                  <i>
-                    <FaCartArrowDown className="fa-cart" />
-                  </i>
+                  <Badge badgeContent={cartQauntity} color="primary">
+                    <ShoppingCartOutlined className="fa-cart" />
+                  </Badge>
                 </Link>
-                <Routes>
-                  <Route path="/cart" element={<Cart />} />
-                </Routes>
               </li>
             </ul>
 
             <div className="registration">
-              <a href="" className="active open-on-small-screen">
-                Create Account
-              </a>
               <Link to="/login" className="login">
                 Login
               </Link>
               <Link to="/register" className="create_account">
                 Create Account
               </Link>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-              </Routes>
             </div>
           </ul>
         </div>
@@ -102,29 +99,19 @@ function Nav() {
           <div className="cart">
             <Link to="/cart">
               <i>
-                <FaCartArrowDown className="fa-cart" />
+                <Badge badgeContent={cartQauntity}>
+                  <ShoppingCartOutlined className="fa-cart" />
+                </Badge>
               </i>
             </Link>
-            <Routes>
-              <Route path="/cart" element={<Cart />} />
-            </Routes>
           </div>
           <div
-            style={
-              isMobile === false
-                ? { background: "red" }
-                : { background: "blue" }
-            }
             className="navbar_toggle"
             onClick={() => {
-              setIsMobile(true);
+              !isMobile ? setIsMobile(true) : setIsMobile(false);
             }}
           >
-            {isMobile ? (
-              <i className="fas fa-times">Close</i>
-            ) : (
-              <i className="fas fa-bars">Menu</i>
-            )}
+            {isMobile ? <FaTimes /> : <FaBars />}
           </div>
         </div>
       </nav>

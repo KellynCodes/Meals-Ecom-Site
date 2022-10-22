@@ -1,4 +1,5 @@
 import React from "react";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import NiceLogo from "../images/nicelogo.jpg";
 
 function Footer() {
@@ -44,21 +45,21 @@ function Footer() {
         <div className="footer_down">
           <div className="copyright">
             <p>
-              &copy; <b>2022</b> Meals Alright Reserved
+              &copy; <b> { new Date().getFullYear()} </b> Meals Alright Reserved
             </p>
           </div>
 
           <div className="social_links">
             <div className="social_icon">
-              <i className="bi bi-facebook"></i>
+              <FaFacebook className="icon" />
             </div>
 
             <div className="social_icon">
-              <i className="bi bi-instagram"></i>
+              <FaInstagram className="icon" />
             </div>
 
             <div className="social_icon">
-              <i className="bi bi-twitter"></i>
+              <FaTwitter className="icon" />
             </div>
           </div>
         </div>
